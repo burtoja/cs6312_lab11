@@ -17,14 +17,55 @@ import edu.westga.cs6312.graphics.model.Thermometer;
 public class DrawingGUI {
 	private Thermometer userThermometer;
 	private ThermometerPane userThermometerPane;
-	
+
+	/**
+	 * 
+	 * Constructor for DrawingGUI
+	 *
+	 *
+	 * @precondition
+	 *
+	 * @postcondition
+	 */
 	public DrawingGUI() {
+		this.createThermometerPane(this.readData());
+	}
+
+	/**
+	 * 
+	 * @return
+	 *
+	 * @precondition
+	 *
+	 * @postcondition
+	 */
+	public ThermometerPane getThermometerPane() {
+		return this.userThermometerPane;
+	}
+	
+	/**
+	 * Helper method to open and read data from the temperatures.txt file. This
+	 * method returns an array with the following data element order:
+	 * 
+	 * [minimumTemperature, currentTemperature, maximumTemperature]
+	 * 
+	 * @return array of minimumTemperature, currentTemperature, and
+	 *         maximumTemperature as read from the temperatures.txt file
+	 *         
+	 * @precondition
+	 * 
+	 * @postcondition
+	 */
+	private int[] readData() {
 		File userFile = new File("temperatures.txt");
 		Scanner inFile = null;
+		int[] dataArray = new int[3];
 		try {
 			inFile = new Scanner(userFile);
+			int dataLineNumber = 0;
 			while (inFile.hasNext()) {
-				String input = inFile.nextLine();
+				dataArray[dataLineNumber] = Integer.parseInt(inFile.nextLine());
+				dataLineNumber++;
 			}
 			inFile.close();
 		} catch (FileNotFoundException fnfe) {
@@ -32,7 +73,23 @@ public class DrawingGUI {
 		} catch (NoSuchElementException nsee) {
 			System.out.println("Read past the end of the file.");
 			inFile.close();
-		}		
+		} catch (IndexOutOfBoundsException ioobe) {
+			System.out.println("Too many lines of data.");
+			inFile.close();
+		}
+		return dataArray;
 	}
 	
+	private void createThermometerPane(int[] temperatureDataArray) {
+		int minimumTemperature = temperatureDataArray[0];
+		int currentTemperature = temperatureDataArray[1];
+		int maximumTemperature = temperatureDataArray[2];
+		this.userThermometer = new Thermometer(minimumTemperature, maximumTemperature, currentTemperature);	
+		this.userThermometerPane = new ThermometerPane(this.userThermometer);	
+	}
+	
+
+	
+
+
 }
