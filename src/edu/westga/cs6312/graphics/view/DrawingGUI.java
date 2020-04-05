@@ -42,7 +42,7 @@ public class DrawingGUI {
 	public ThermometerPane getThermometerPane() {
 		return this.userThermometerPane;
 	}
-	
+
 	/**
 	 * Helper method to open and read data from the temperatures.txt file. This
 	 * method returns an array with the following data element order:
@@ -51,7 +51,7 @@ public class DrawingGUI {
 	 * 
 	 * @return array of minimumTemperature, currentTemperature, and
 	 *         maximumTemperature as read from the temperatures.txt file
-	 *         
+	 * 
 	 * @precondition
 	 * 
 	 * @postcondition
@@ -67,29 +67,29 @@ public class DrawingGUI {
 				dataArray[dataLineNumber] = Integer.parseInt(inFile.nextLine());
 				dataLineNumber++;
 			}
+			if (dataLineNumber < 3) {
+				System.out.println("Too few entries in data file.");
+			}
 			inFile.close();
 		} catch (FileNotFoundException fnfe) {
 			System.out.println("Data file does not exist.");
 		} catch (NoSuchElementException nsee) {
-			System.out.println("Read past the end of the file.");
+			System.out.println("Too few entries in data file. Read past the end of the file.");
 			inFile.close();
-		} catch (IndexOutOfBoundsException ioobe) {
-			System.out.println("Too many lines of data.");
+		} catch (ArrayIndexOutOfBoundsException aioobe) {
+			System.out.println("Too many entries in data file.");
 			inFile.close();
-		}
+			dataArray = null;
+		}		
 		return dataArray;
 	}
-	
+
 	private void createThermometerPane(int[] temperatureDataArray) {
 		int minimumTemperature = temperatureDataArray[0];
 		int currentTemperature = temperatureDataArray[1];
 		int maximumTemperature = temperatureDataArray[2];
-		this.userThermometer = new Thermometer(minimumTemperature, maximumTemperature, currentTemperature);	
-		this.userThermometerPane = new ThermometerPane(this.userThermometer);	
+		this.userThermometer = new Thermometer(minimumTemperature, maximumTemperature, currentTemperature);
+		this.userThermometerPane = new ThermometerPane(this.userThermometer);
 	}
-	
-
-	
-
 
 }

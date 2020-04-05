@@ -32,11 +32,11 @@ public class Thermometer {
 	 */
 	public Thermometer(int minimumTemperature, int maximumTemperature, int currentTemperature) {
 		if (maximumTemperature <= minimumTemperature) {
-			throw new IllegalArgumentException("Maximum temperature must be greater than minimum temperature");
+			throw new IllegalArgumentException("Maximum temperature must be greater than minimum temperature.");
 		}
 		if (currentTemperature < minimumTemperature || currentTemperature > maximumTemperature) {
 			throw new IllegalArgumentException(
-					"Current temperature must fall between (inclusive) minimum and maximum temperatures");
+					"Current temperature must fall between (inclusive) minimum and maximum temperatures.");
 		}
 		this.minimumTemperature = minimumTemperature;
 		this.maximumTemperature = maximumTemperature;
