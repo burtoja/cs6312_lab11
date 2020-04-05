@@ -19,25 +19,29 @@ public class DrawingGUI {
 	private ThermometerPane userThermometerPane;
 
 	/**
-	 * 
-	 * Constructor for DrawingGUI
+	 * Constructor for DrawingGUI objects. This constructor creates and
+	 * ThermometerPane object based off of data provided in temperatures.txt file
+	 * which holds three (and only three) integer values representing the minimum
+	 * scale, current, and maximum scale temperatures each on a separate line.
 	 *
+	 * @precondition temperature.txt file must be available and formatted correctly
 	 *
-	 * @precondition
-	 *
-	 * @postcondition
+	 * @postcondition new Thermometer and ThermometerPane objects created
 	 */
 	public DrawingGUI() {
 		this.createThermometerPane(this.readData());
 	}
 
 	/**
+	 * Returns the ThermometerPane object created when this object's constructor was
+	 * called.
 	 * 
-	 * @return
+	 * @return ThermometerPane object created when this object's constructor was
+	 *         called
 	 *
-	 * @precondition
+	 * @precondition none
 	 *
-	 * @postcondition
+	 * @postcondition no change to object
 	 */
 	public ThermometerPane getThermometerPane() {
 		return this.userThermometerPane;
@@ -52,9 +56,9 @@ public class DrawingGUI {
 	 * @return array of minimumTemperature, currentTemperature, and
 	 *         maximumTemperature as read from the temperatures.txt file
 	 * 
-	 * @precondition
+	 * @precondition temperatures.txt must be available and properly formatted
 	 * 
-	 * @postcondition
+	 * @postcondition no change to object
 	 */
 	private int[] readData() {
 		File userFile = new File("temperatures.txt");
@@ -80,10 +84,24 @@ public class DrawingGUI {
 			System.out.println("Too many entries in data file.");
 			inFile.close();
 			dataArray = null;
-		}		
+		}
 		return dataArray;
 	}
 
+	/**
+	 * This helper method uses the data read from the temeratures.txt file to create
+	 * a Thermometer and then use that thermometer to create and ThermometerPane
+	 * object
+	 * 
+	 * @param temperatureDataArray three element array holding integers representing
+	 *                             minimum scale value, current temperature, and
+	 *                             maximum scale value (in that order)
+	 *
+	 * @precondition temperatureDataArray must have three elements in the correct
+	 *               order: minimum, current, maximum
+	 *
+	 * @postcondition new Thermometer and ThermometerPane objects created
+	 */
 	private void createThermometerPane(int[] temperatureDataArray) {
 		int minimumTemperature = temperatureDataArray[0];
 		int currentTemperature = temperatureDataArray[1];

@@ -16,13 +16,14 @@ import javafx.stage.Stage;
 public class GraphicsDriver extends Application {
 
 	/**
-	 * This method create and display an appropriate GUI
+	 * This method creates and displays an appropriate GUI
 	 * 
 	 * @param primaryStage
 	 *
-	 * @precondition
+	 * @precondition primaryStage != null
 	 *
-	 * @postcondition
+	 * @postcondition DrawingGUI, Pane, Scene objects created
+	 * 
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -33,8 +34,8 @@ public class GraphicsDriver extends Application {
 			Scene scene = new Scene(pane, 400, 400);
 			primaryStage.setScene(scene);
 			primaryStage.show();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 			System.out.println("Unable to create thermometer diagram.");
 		}
 	}

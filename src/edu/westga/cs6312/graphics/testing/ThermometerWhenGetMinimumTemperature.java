@@ -6,6 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6312.graphics.model.Thermometer;
 
+/**
+ * This will serve to test the getMinimumTemperature method of the Thermometer
+ * class
+ * 
+ * @author J. Allen Burton
+ * @version Apr 5, 2020
+ *
+ */
 public class ThermometerWhenGetMinimumTemperature {
 
 	/**
@@ -19,7 +27,7 @@ public class ThermometerWhenGetMinimumTemperature {
 		int report = theThermometer.getMinimumTemperature();
 		assertEquals(32, report);
 	}
-	
+
 	/**
 	 * Test getMinimumTemperature method from the Temperature class when zero
 	 * 
@@ -34,7 +42,7 @@ public class ThermometerWhenGetMinimumTemperature {
 
 	/**
 	 * Test getMinimumTemperature method from the Temperature class with a negative
-	 * minimum temperature 
+	 * minimum temperature
 	 * 
 	 * Expect: -273
 	 */

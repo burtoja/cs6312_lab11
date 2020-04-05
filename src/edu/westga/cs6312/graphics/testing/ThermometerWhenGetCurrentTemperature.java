@@ -6,6 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6312.graphics.model.Thermometer;
 
+/**
+ * This will serve to test the getCurrentTemperature method of the Thermometer
+ * class
+ * 
+ * @author J. Allen Burton
+ * @version Apr 5, 2020
+ *
+ */
 public class ThermometerWhenGetCurrentTemperature {
 
 	/**

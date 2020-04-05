@@ -6,6 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import edu.westga.cs6312.graphics.model.Thermometer;
 
+/**
+ * This will serve to test the getMaximumTemperature method of the Thermometer
+ * class
+ * 
+ * @author J. Allen Burton
+ * @version Apr 5, 2020
+ *
+ */
 public class ThermometerWhenGetMaximumTemperature {
 
 	/**
@@ -19,7 +27,7 @@ public class ThermometerWhenGetMaximumTemperature {
 		int report = theThermometer.getMaximumTemperature();
 		assertEquals(212, report);
 	}
-	
+
 	/**
 	 * Test getMaximumTemperature method from the Temperature class when zero
 	 * 
@@ -34,7 +42,7 @@ public class ThermometerWhenGetMaximumTemperature {
 
 	/**
 	 * Test getMaximumTemperature method from the Temperature class with a negative
-	 * maximum temperature 
+	 * maximum temperature
 	 * 
 	 * Expect: -100
 	 */
@@ -46,4 +54,3 @@ public class ThermometerWhenGetMaximumTemperature {
 	}
 
 }
-
