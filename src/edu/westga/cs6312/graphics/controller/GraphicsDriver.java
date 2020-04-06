@@ -30,8 +30,8 @@ public class GraphicsDriver extends Application {
 		try {
 			DrawingGUI userDrawingGUI = new DrawingGUI();
 			Pane pane = userDrawingGUI.getThermometerPane();
-
 			Scene scene = new Scene(pane, 400, 400);
+			primaryStage.setTitle("Thermometer");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception ex) {

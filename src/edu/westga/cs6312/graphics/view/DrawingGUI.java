@@ -2,6 +2,7 @@ package edu.westga.cs6312.graphics.view;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -49,63 +50,69 @@ public class DrawingGUI {
 
 	/**
 	 * Helper method to open and read data from the temperatures.txt file. This
-	 * method returns an array with the following data element order:
+	 * method returns an ArrayList of Integer objects for each line of data in the
+	 * file. The validity of the data values will be checked elsewhere when used.
 	 * 
-	 * [minimumTemperature, currentTemperature, maximumTemperature]
-	 * 
-	 * @return array of minimumTemperature, currentTemperature, and
-	 *         maximumTemperature as read from the temperatures.txt file
+	 * @return ArrayList of data read from the temperatures.txt file
 	 * 
 	 * @precondition temperatures.txt must be available and properly formatted
 	 * 
 	 * @postcondition no change to object
 	 */
-	private int[] readData() {
+	private ArrayList<Integer> readData() {
 		File userFile = new File("temperatures.txt");
 		Scanner inFile = null;
-		int[] dataArray = new int[3];
+		ArrayList<Integer> thermometerValues = new ArrayList<Integer>();
 		try {
 			inFile = new Scanner(userFile);
-			int dataLineNumber = 0;
 			while (inFile.hasNext()) {
-				dataArray[dataLineNumber] = Integer.parseInt(inFile.nextLine());
-				dataLineNumber++;
-			}
-			if (dataLineNumber < 3) {
-				System.out.println("Too few entries in data file.");
+				thermometerValues.add(Integer.parseInt(inFile.nextLine()));
 			}
 			inFile.close();
 		} catch (FileNotFoundException fnfe) {
 			System.out.println("Data file does not exist.");
+		} catch (NumberFormatException nfe) {
+			System.out.println("An entry in the file was not a valid integer.");
+			thermometerValues.add(null);
 		} catch (NoSuchElementException nsee) {
-			System.out.println("Too few entries in data file. Read past the end of the file.");
+			System.out.println("Read past the end of the file.");
+			thermometerValues.add(null);
 			inFile.close();
-		} catch (ArrayIndexOutOfBoundsException aioobe) {
-			System.out.println("Too many entries in data file.");
-			inFile.close();
-			dataArray = null;
 		}
-		return dataArray;
+		return thermometerValues;
 	}
 
 	/**
 	 * This helper method uses the data read from the temeratures.txt file to create
 	 * a Thermometer and then use that thermometer to create and ThermometerPane
-	 * object
+	 * object.
 	 * 
-	 * @param temperatureDataArray three element array holding integers representing
-	 *                             minimum scale value, current temperature, and
-	 *                             maximum scale value (in that order)
+	 * @param thermometerValues ArrayList holding integers representing minimum
+	 *                          scale value, current temperature, and maximum scale
+	 *                          value (in that order)
 	 *
-	 * @precondition temperatureDataArray must have three elements in the correct
-	 *               order: minimum, current, maximum
+	 * @precondition thermometerValues must have three elements. Correct order
+	 *               (minimum, current, maximum) is validated in Thermometer
+	 *               constructor.
 	 *
 	 * @postcondition new Thermometer and ThermometerPane objects created
 	 */
-	private void createThermometerPane(int[] temperatureDataArray) {
-		int minimumTemperature = temperatureDataArray[0];
-		int currentTemperature = temperatureDataArray[1];
-		int maximumTemperature = temperatureDataArray[2];
+	private void createThermometerPane(ArrayList<Integer> thermometerValues) {
+		if (thermometerValues.isEmpty()) {
+			throw new IllegalArgumentException("No data found in file.");
+		}
+		if (thermometerValues.get(thermometerValues.size() - 1) == null) {
+			throw new IllegalArgumentException("Invalid data in file.");
+		}
+		if (thermometerValues.size() < 3) {
+			throw new IllegalArgumentException("Too few valid entries in data file.");
+		}
+		if (thermometerValues.size() > 3) {
+			throw new IllegalArgumentException("Too many entries in data file.");
+		}
+		int minimumTemperature = thermometerValues.get(0);
+		int currentTemperature = thermometerValues.get(1);
+		int maximumTemperature = thermometerValues.get(2);
 		this.userThermometer = new Thermometer(minimumTemperature, maximumTemperature, currentTemperature);
 		this.userThermometerPane = new ThermometerPane(this.userThermometer);
 	}
